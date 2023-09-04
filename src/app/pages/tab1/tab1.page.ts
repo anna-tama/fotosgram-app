@@ -8,13 +8,13 @@ import { PostsService } from '../../services/posts.service';
 })
 export class Tab1Page implements OnInit {
 
-  constructor(private postsService: PostsService) { }
+  constructor(private postsService: PostsService) {}
 
   ngOnInit(): void {
     this.postsService.getPosts()
-      .subscribe(resp => {
-        console.log(resp)
-      })
+    .subscribe(resp=>{
+      console.log('posts',resp)
+    })
   }
 
 }
