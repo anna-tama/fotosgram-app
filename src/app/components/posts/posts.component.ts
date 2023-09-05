@@ -6,14 +6,14 @@ import { Post } from 'src/app/interfaces/interfaces';
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
 })
-export class PostsComponent  implements OnInit {
+export class PostsComponent implements OnInit {
 
-  @Input() posts:Post[]=[]
+  @Input() posts: Post[] = []
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.posts)
+    console.log('this.posts', this.posts)
   }
 
 }
