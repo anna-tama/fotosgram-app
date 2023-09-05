@@ -12,15 +12,15 @@
     </ion-label>
   </ion-item>
 
-  <swiper-container>
-    <swiper-slide>
-      <img src="/assets/perro-1.jpg">
+  <swiper-container >
+    <!-- <swiper-slide class="image-slide" *ngFor="let img of post.imgs"
+    [ngStyle]="{ 'background-image': 'url(' + url + '/post/imagen/' + post.usuario?._id + '/' + img + ')' }">
+    </swiper-slide> -->
+    <swiper-slide class="image-slide" [style]="img1|domSanitizer">
     </swiper-slide>
-    <swiper-slide>
-      <img src="/assets/perro-2.jpg">
+    <swiper-slide class="image-slide" [style]="img2|domSanitizer">
     </swiper-slide>
-    <swiper-slide>
-      <img src="/assets/perro-3.jpg">
+    <swiper-slide class="image-slide" [style]="img3|domSanitizer">
     </swiper-slide>
   </swiper-container>
 

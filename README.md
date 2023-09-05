@@ -3,6 +3,8 @@
  ionic g m components
  ionic g c components/posts
  ionic g c components/post
+ ionic g m pipes
+ ionic g pipe pipes/domSanitizer
 
 //json to ts
 Convert from clipboard (Shift + Ctrl + Alt + V)
