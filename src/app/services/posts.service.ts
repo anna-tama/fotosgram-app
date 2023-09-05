@@ -14,8 +14,11 @@ export class PostsService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts() {
-    this.paginaPosts ++;
+  getPosts(pull: boolean = false) {
+    if(pull){ //debo volver a recargar desde cero
+      this.paginaPosts = 0;
+    }
+    this.paginaPosts++;
     return this.http.get<RespuestaPosts>(`${URL}/posts/?pagina=${this.paginaPosts}`);
   }
 }
