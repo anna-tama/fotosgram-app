@@ -6,9 +6,12 @@
  ionic g m pipes
  ionic g pipe pipes/domSanitizer
 
-//json to ts
-Convert from clipboard (Shift + Ctrl + Alt + V)
+//swiper
+    https://ionicframework.com/docs/angular/slides  
 
- //correr node en la carpeta de fotosgram-server
+//json to ts
+ Convert from clipboard (Shift + Ctrl + Alt + V)
+
+//correr node en la carpeta de fotosgram-server
  tsc
  node dist/
