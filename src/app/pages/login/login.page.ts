@@ -6,6 +6,7 @@ import { register } from 'swiper/element/bundle'
 import { UsuarioService } from '../../services/usuario.service';
 import { NavController } from '@ionic/angular';
 import { UiService } from 'src/app/services/ui-service.service';
+import { Usuario } from 'src/app/interfaces/interfaces';
 
 register();
 
@@ -60,6 +61,12 @@ export class LoginPage implements OnInit {
     password: 'erika123'
   }
 
+  registerUser: Usuario = {
+    email: 'lala@lala.com',
+    password: 'lala123',
+    nombre: 'Lala',
+  }
+
   constructor(
     private usuarioService: UsuarioService,
     private navCtrl: NavController,
@@ -82,7 +89,16 @@ export class LoginPage implements OnInit {
     }
   }
 
-  registro(fRegistro: NgForm) {
+ async  registro(fRegistro: NgForm) {
+    if (fRegistro.invalid) return;
+
+    const valido = await this.usuarioService.registro(this.registerUser)
+
+    if (valido) {
+      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true })
+    } else {
+      this.uiService.alertaInformativa('Ese correo electrónico ya existe')
+    }
     console.log('fRegistro.valid', fRegistro.valid);
   }
 
@@ -98,4 +114,6 @@ export class LoginPage implements OnInit {
   swiperReady() {
     this.slidePrincipal = this.swiperRef?.nativeElement.swiper;
   }
+
+
 }

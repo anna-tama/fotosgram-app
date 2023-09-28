@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
+import { Usuario } from '../interfaces/interfaces';
 
 const URL = environment.url;
 
@@ -33,28 +34,42 @@ export class UsuarioService {
 
   login(email: string, password: string) {
     const data = { email, password }
-return new Promise(resolve =>{
-  this.http.post(`${URL}/user/login`, data)
-  .subscribe((resp: any) => {
-    console.log(resp)
+    return new Promise(resolve => {
+      this.http.post(`${URL}/user/login`, data)
+        .subscribe((resp: any) => {
+          console.log(resp)
 
-    if (resp['ok']) {
-      this.guardarToken(resp['token'])
-      resolve(true);
-    } else {
-      this.token = '';
-      this.storage.clear();
-      resolve(false);
-    }
-  })
-})
-
-    
+          if (resp['ok']) {
+            this.guardarToken(resp['token'])
+            resolve(true);
+          } else {
+            this.token = '';
+            this.storage.clear();
+            resolve(false);
+          }
+        })
+    })
   }
 
   async guardarToken(token: string) {
     this.token = token;
     await this.set('token', token)
+  }
+
+  registro(usuario: Usuario) {
+    return new Promise(resolve => {
+      this.http.post(`${URL}/user/create`, usuario)
+        .subscribe((resp: any) => {
+          if (resp['ok']) {
+            this.guardarToken(resp['token'])
+            resolve(true);
+          } else {
+            this.token = '';
+            this.storage.clear();
+            resolve(false);
+          }
+        })
+    })
   }
 
 }
