@@ -6,6 +6,7 @@
  ionic g m pipes
  ionic g pipe pipes/domSanitizer
  ionic g s services/usuario
+ ionic g s services/UiService
 
 //swiper
     https://ionicframework.com/docs/angular/slides  

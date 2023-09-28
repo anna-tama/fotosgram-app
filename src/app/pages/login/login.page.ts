@@ -5,6 +5,7 @@ import Swiper from 'swiper';
 import { register } from 'swiper/element/bundle'
 import { UsuarioService } from '../../services/usuario.service';
 import { NavController } from '@ionic/angular';
+import { UiService } from 'src/app/services/ui-service.service';
 
 register();
 
@@ -61,7 +62,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private uiService: UiService
   ) { }
 
   ngOnInit() {
@@ -76,7 +78,7 @@ export class LoginPage implements OnInit {
     if (valido) {
       this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true })
     } else {
-
+      this.uiService.alertaInformativa('Usuario y contraseña no son correctos')
     }
   }
 
