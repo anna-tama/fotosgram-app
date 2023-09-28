@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { environment } from 'src/environments/environment';
+import Swiper from 'swiper';
+
 import { register } from 'swiper/element/bundle'
+import { UsuarioService } from '../../services/usuario.service';
 
 register();
 
@@ -12,8 +14,9 @@ register();
 })
 export class LoginPage implements OnInit {
 
-  public url = environment.url;
-
+  @ViewChild('slidePrincipal')
+  swiperRef: ElementRef | undefined;
+  slidePrincipal?: Swiper;
 
   avatars = [
     {
@@ -50,13 +53,21 @@ export class LoginPage implements OnInit {
     },
   ];
 
-  constructor() { }
+  loginUser = {
+    email: 'erika@erika.com',
+    password: 'erika123'
+  }
+
+  constructor(private usuarioService: UsuarioService) { }
 
   ngOnInit() {
+
   }
 
   login(fLogin: NgForm) {
-    console.log('fLogin.valid', fLogin.valid);
+    if(fLogin.invalid) return;
+ this.usuarioService.login(this.loginUser.email,this.loginUser.password)
+
   }
 
   registro(fRegistro: NgForm) {
@@ -64,8 +75,15 @@ export class LoginPage implements OnInit {
   }
 
   seleccionarAvatar(avatar: any) {
-    this.avatars.forEach(av => av.seleccionado = false  /*quito la selección de todos*/ )
+    this.avatars.forEach(av => av.seleccionado = false  /*quito la selección de todos*/)
     avatar.seleccionado = true;
   }
 
+  swiperSlideChanged(e: any) {
+    console.log('changed: ', e);
+  }
+
+  swiperReady() {
+    this.slidePrincipal = this.swiperRef?.nativeElement.swiper;
+  }
 }

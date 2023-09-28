@@ -1,9 +1,13 @@
 <ion-content>
 
-  <swiper-container class="mainSlide">
+  <swiper-container class="mainSlide" #slidePrincipal 
+  (afterinit)="swiperReady()"
+    (slidechange)="swiperSlideChanged($event)"
+    [loop]="true"
+    [pagination]="true"
+ >
 
-    <swiper-slide>
-
+    <swiper-slide >
       <form (ngSubmit)="login(fLogin)" #fLogin="ngForm">
         <ion-grid fixed>
 
@@ -20,12 +24,12 @@
 
                 <ion-item>
                   <ion-label>Email</ion-label>
-                  <ion-input name="email" type="email" required></ion-input>
+                  <ion-input name="email" type="email" [(ngModel)]="loginUser.email" required></ion-input>
                 </ion-item>
 
                 <ion-item>
                   <ion-label>Password</ion-label>
-                  <ion-input name="password" type="password" required></ion-input>
+                  <ion-input name="password" type="password"[(ngModel)]="loginUser.password" required></ion-input>
                 </ion-item>
 
               </ion-list>
