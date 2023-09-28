@@ -4,6 +4,7 @@ import Swiper from 'swiper';
 
 import { register } from 'swiper/element/bundle'
 import { UsuarioService } from '../../services/usuario.service';
+import { NavController } from '@ionic/angular';
 
 register();
 
@@ -58,16 +59,25 @@ export class LoginPage implements OnInit {
     password: 'erika123'
   }
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(
+    private usuarioService: UsuarioService,
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
 
   }
 
-  login(fLogin: NgForm) {
-    if(fLogin.invalid) return;
- this.usuarioService.login(this.loginUser.email,this.loginUser.password)
+  async login(fLogin: NgForm) {
+    if (fLogin.invalid) return;
 
+    const valido = await this.usuarioService.login(this.loginUser.email, this.loginUser.password)
+
+    if (valido) {
+      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true })
+    } else {
+
+    }
   }
 
   registro(fRegistro: NgForm) {

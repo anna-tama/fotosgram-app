@@ -12,22 +12,49 @@ export class UsuarioService {
 
   token: string = '';
 
-  constructor(
-    private storage: Storage,
-    private http: HttpClient) { }
+  private _storage: Storage | null = null;
 
-  async ngOnInit() {
-    // If using a custom driver:
-    // await this.storage.defineDriver(MyCustomDriver)
-    await this.storage.create();
+  constructor(private storage: Storage,
+    private http: HttpClient) {
+    this.init();
+  }
+
+  async init() {
+    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+    const storage = await this.storage.create();
+    this._storage = storage;
+  }
+
+  // Create and expose methods that users of this service can
+  // call, for example:
+  public set(key: string, value: any) {
+    this._storage?.set(key, value);
   }
 
   login(email: string, password: string) {
     const data = { email, password }
-    this.http.post(`${URL}/user/login`, data)
-      .subscribe(resp => {
-        console.log(resp)
-      })
+return new Promise(resolve =>{
+  this.http.post(`${URL}/user/login`, data)
+  .subscribe((resp: any) => {
+    console.log(resp)
+
+    if (resp['ok']) {
+      this.guardarToken(resp['token'])
+      resolve(true);
+    } else {
+      this.token = '';
+      this.storage.clear();
+      resolve(false);
+    }
+  })
+})
+
+    
+  }
+
+  async guardarToken(token: string) {
+    this.token = token;
+    await this.set('token', token)
   }
 
 }

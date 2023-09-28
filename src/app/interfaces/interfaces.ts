@@ -19,3 +19,8 @@ export interface Usuario {
     avatar?: string;
     email?: string;
 }
+
+export interface Token {
+    ok?: string;
+    token?: string;
+}
