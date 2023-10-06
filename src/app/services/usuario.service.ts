@@ -57,9 +57,11 @@ export class UsuarioService {
   }
 
   registro(usuario: Usuario) {
+    console.log('registro')
     return new Promise(resolve => {
       this.http.post(`${URL}/user/create`, usuario)
         .subscribe((resp: any) => {
+          console.log('resp',resp)
           if (resp['ok']) {
             this.guardarToken(resp['token'])
             resolve(true);

@@ -7,6 +7,7 @@
  ionic g pipe pipes/domSanitizer
  ionic g s services/usuario
  ionic g s services/UiService
+ ionic g c components/avatarSelector
 
 //swiper
     https://ionicframework.com/docs/angular/slides  

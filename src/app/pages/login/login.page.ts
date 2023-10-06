@@ -21,40 +21,6 @@ export class LoginPage implements OnInit {
   swiperRef: ElementRef | undefined;
   slidePrincipal?: Swiper;
 
-  avatars = [
-    {
-      img: 'av-1.png',
-      seleccionado: true
-    },
-    {
-      img: 'av-2.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-3.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-4.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-5.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-6.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-7.png',
-      seleccionado: false
-    },
-    {
-      img: 'av-8.png',
-      seleccionado: false
-    },
-  ];
 
   loginUser = {
     email: 'erika@erika.com',
@@ -65,6 +31,7 @@ export class LoginPage implements OnInit {
     email: 'lala@lala.com',
     password: 'lala123',
     nombre: 'Lala',
+    avatar: 'av-1.png'
   }
 
   constructor(
@@ -93,6 +60,7 @@ export class LoginPage implements OnInit {
     if (fRegistro.invalid) return;
 
     const valido = await this.usuarioService.registro(this.registerUser)
+    console.log('valido',valido)
 
     if (valido) {
       this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true })
@@ -102,13 +70,9 @@ export class LoginPage implements OnInit {
     console.log('fRegistro.valid', fRegistro.valid);
   }
 
-  seleccionarAvatar(avatar: any) {
-    this.avatars.forEach(av => av.seleccionado = false  /*quito la selección de todos*/)
-    avatar.seleccionado = true;
-  }
 
   swiperSlideChanged(e: any) {
-    console.log('changed: ', e);
+   // console.log('changed: ', e);
   }
 
   swiperReady() {
