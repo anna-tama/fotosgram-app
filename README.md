@@ -8,6 +8,7 @@
  ionic g s services/usuario
  ionic g s services/UiService
  ionic g c components/avatarSelector
+ ionic g guard guards/usuario
 
 //swiper
     https://ionicframework.com/docs/angular/slides  
