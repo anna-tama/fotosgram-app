@@ -13,7 +13,7 @@ const URL = environment.url;
 export class UsuarioService {
 
   token: string = '';
-  usuario: Usuario = {
+  private usuario: Usuario = {
     password: ''
   }
 
@@ -57,6 +57,13 @@ export class UsuarioService {
     })
   }
 
+  getUsuario() {
+    if (!this.usuario._id) {
+      this.validaToken()
+    }
+    return { ...this.usuario };
+  }
+
   async guardarToken(token: string) {
     this.token = token;
     await this.set('token', token)
@@ -80,7 +87,7 @@ export class UsuarioService {
     })
   }
 
-  async cargarToken(){
+  async cargarToken() {
     this.token = await this.storage.get('token') || null;
   }
 
@@ -88,7 +95,7 @@ export class UsuarioService {
 
     await this.cargarToken();
 
-    if(!this.token){
+    if (!this.token) {
       this.navCtrl.navigateRoot('/login')
       return Promise.resolve(false)
     }
@@ -111,4 +118,22 @@ export class UsuarioService {
     });
   }
 
+  actualizarUsuario(usuario: Usuario) {
+    const headers = new HttpHeaders({
+      'x-token': this.token
+    })
+
+    return new Promise(resolve => {
+      this.http.post(`${URL}/user/update`, usuario, { headers })
+        .subscribe((resp: any) => {
+          console.log(resp)
+          if (resp['ok']) {
+            this.guardarToken(resp['token'])
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        })
+    })
+  }
 }
